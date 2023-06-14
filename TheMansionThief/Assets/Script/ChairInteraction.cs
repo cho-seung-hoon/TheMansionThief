@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ChairInteraction : MonoBehaviour
 {
@@ -9,13 +11,19 @@ public class ChairInteraction : MonoBehaviour
     public GameObject chairObject3;
     public GameObject chairObject4;
     public Vector3 minWestPosition = new Vector3(-6f, 0.0f, -7.9f); 
-    public Vector3 maxWestPosition = new Vector3(-5.1f, 1.0f, -7.2f); // ¼­ÂÊ ÀÇÀÚ
+    public Vector3 maxWestPosition = new Vector3(-5.1f, 1.0f, -7.2f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Vector3 minNorthPosition = new Vector3(-5.0f, 0.0f, -7.0f);
-    public Vector3 maxNorthPosition = new Vector3(-4.0f, 1.0f, -6.0f); // ºÏÂÊ ÀÇÀÚ
+    public Vector3 maxNorthPosition = new Vector3(-4.0f, 1.0f, -6.0f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Vector3 minEastPosition = new Vector3(-3.9f, 0f, -7.8f);
-    public Vector3 maxEastPosition = new Vector3(-2.8f, 1f, -5.2f); // µ¿ÂÊ ÀÇÀÚ
+    public Vector3 maxEastPosition = new Vector3(-2.8f, 1f, -5.2f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Vector3 minSouthPosition = new Vector3(-5.0f, 0f, -8.8f);
-    public Vector3 maxSouthPosition = new Vector3(-4.1f, 1f, -7.7f); // ³²ÂÊ ÀÇÀÚ
+    public Vector3 maxSouthPosition = new Vector3(-4.1f, 1f, -7.7f); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+    public GameObject Current;
+    public TextMeshProUGUI textComponent;
+    public TextMeshProUGUI resultText;
+
+    public bool debuglog = true;
     
 
     private bool isFacingChair = false;
@@ -51,7 +59,12 @@ public class ChairInteraction : MonoBehaviour
 
             }
         }
+        if ((chairObject1.transform.rotation.eulerAngles.y >= 175f && chairObject1.transform.rotation.eulerAngles.y <= 185f) && (chairObject2.transform.rotation.eulerAngles.y >= 85f && chairObject2.transform.rotation.eulerAngles.y <= 95f) && (chairObject3.transform.rotation.eulerAngles.y >= 310f && chairObject3.transform.rotation.eulerAngles.y <= 320f) && (chairObject4.transform.rotation.eulerAngles.y >= 40f && chairObject4.transform.rotation.eulerAngles.y <= 50f) && debuglog) {
+            Print("Find The Second Hint");
+        }
+        
         LateUpdate();
+        
     }
     private void LateUpdate()
     {
@@ -59,7 +72,7 @@ public class ChairInteraction : MonoBehaviour
     }
     private bool CheckIfFacingChair()
     {
-        // ÇÃ·¹ÀÌ¾î ¿ÀºêÁ§Æ®°¡ °è´ÜÀ» ¹Ù¶óº¸°í ÀÖ´ÂÁö ¿©ºÎ¸¦ Ã¼Å©ÇÕ´Ï´Ù.
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ Ã¼Å©ï¿½Õ´Ï´ï¿½.
         Vector3 cameraDirection1 = chairObject1.transform.position - Camera.main.transform.position;
         Vector3 cameraDirection2 = chairObject2.transform.position - Camera.main.transform.position;
         Vector3 cameraDirection3 = chairObject3.transform.position - Camera.main.transform.position;
@@ -68,6 +81,19 @@ public class ChairInteraction : MonoBehaviour
         float angle2 = Vector3.Angle(cameraDirection2, Camera.main.transform.forward);
         float angle3 = Vector3.Angle(cameraDirection3, Camera.main.transform.forward);
         float angle4 = Vector3.Angle(cameraDirection4, Camera.main.transform.forward);
-        return angle1 < 45f || angle2 < 45f || angle3 < 45f || angle4 < 45f; // °¢µµ¸¦ Á¶Á¤ÇÏ¿© °è´ÜÀ» ¹Ù¶óº¸°í ÀÖ´ÂÁö ¿©ºÎ¸¦ ÆÇ´ÜÇÕ´Ï´Ù.
+        return angle1 < 45f || angle2 < 45f || angle3 < 45f || angle4 < 45f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸°ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½Ç´ï¿½ï¿½Õ´Ï´ï¿½.
     }
+    public void Print(string str){
+        textComponent.text = str;
+        resultText.text = "0";
+        Current.SetActive(true);
+        StartCoroutine(AfterDelay());
+    }
+
+    IEnumerator AfterDelay(){
+        float delay = 3f;
+        yield return new WaitForSeconds(delay);
+        Current.SetActive(false);
+    }
+
 }

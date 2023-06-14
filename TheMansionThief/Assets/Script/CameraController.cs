@@ -4,49 +4,46 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    bool isPause = false;
-    // Start is called before the first frame update
+    bool isCameraMove = true;
     void Start()
     {
-
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
-    public float sensitivity = 2f; // 마우스 감도
+    public float sensitivity = 2f;
 
-    private float rotationX = 0f; // X축 회전 각도
-    private float rotationY = 0f; // Y축 회전 각도
+    private float rotationX = 0f;
+    private float rotationY = 0f;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if(isCameraMove)
         {
-            isPause = !(isPause);
-        }
-        if(isPause)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        } else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            float mouseX = Input.GetAxis("Mouse X") * sensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 
-            float mouseX = Input.GetAxis("Mouse X") * sensitivity; // 마우스 X 축 이동량
-            float mouseY = Input.GetAxis("Mouse Y") * sensitivity; // 마우스 Y 축 이동량
+            rotationX -= mouseY;
+            rotationY += mouseX;
+            rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-            rotationX -= mouseY; // Y 축 회전 각도 계산
-            rotationY += mouseX; // X 축 회전 각도 계산
-            rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Y 축 회전 각도 제한
+            rotationY %= 180f;
 
-            rotationY %= 180f; // X 축 회전 각도 제한 (0~180도 사이로 유지)
+            Quaternion camRotation = Quaternion.Euler(rotationX, rotationY, 0f);
 
-            Quaternion camRotation = Quaternion.Euler(rotationX, rotationY, 0f); // 카메라 회전 각도 계산
-
-            // 카메라 회전 적용
             transform.localRotation = camRotation;
         }
-       
+    }
 
+    public void ToggleCamera(bool isEnabled){
+        isCameraMove = isEnabled;
+        Cursor.visible = !isEnabled;
 
+        if(isEnabled){
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else{
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

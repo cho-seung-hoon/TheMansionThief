@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ButtonClick : MonoBehaviour
 {
-    public string targetTag = "Book"; // ÅÂ±×·Î °Ë»öÇÒ ¿ÀºêÁ§Æ®ÀÇ ÅÂ±×
+    public GameObject Current; // UI -> CurrentPuzzle
+    public TextMeshProUGUI textComponent; // UI -> CurrentPuzzle ->
+    public TextMeshProUGUI resultText; // UI -> Hint -> Panel -> 1
+
+    public string targetTag = "Book"; // ï¿½Â±×·ï¿½ ï¿½Ë»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Â±ï¿½
     public string targetTag2 = "Room1Answer";
 
     public int[] A = new int[4];
-    public int[] B = { 1, 2, 3, 4 }; // ºñ±³ÇÒ ¹è¿­
+    public int[] B = { 1, 2, 3, 4 }; // ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 
     private int currentIndex = 0;
 
@@ -19,7 +25,7 @@ public class ButtonClick : MonoBehaviour
 
     public void SomeMethod(int value)
     {
-        // ÀÌ¹Ì Á¸ÀçÇÏ´Â °ªÀÎÁö È®ÀÎ
+        // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         bool isDuplicate = false;
         for (int i = 0; i < A.Length; i++)
         {
@@ -39,23 +45,23 @@ public class ButtonClick : MonoBehaviour
             {
                 if (ArraysEqual(A, B))
                 {
-                    Debug.Log("A ¹è¿­°ú B ¹è¿­ÀÌ µ¿ÀÏÇÕ´Ï´Ù!");
+                    Print("Find The First Hint"); // Ui í™œì„±í™” ë° 3ì´ˆ í›„ ë¹„í™œì„±í™”ë˜ëŠ” í•¨ìˆ˜
                 }
             }
         }
     }
 
-    // ¹è¿­ A¸¦ ÃÊ±âÈ­ÇÏ´Â ¸Þ¼Òµå
+    // ï¿½è¿­ Aï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
     private void InitializeArray()
     {
         for (int i = 0; i < A.Length; i++)
         {
-            A[i] = -1; // ÃÊ±â °ªÀ¸·Î ¹è¿­À» Ã¤¿ó´Ï´Ù. ÀÌ °ªÀº ½ÇÁ¦·Î ÀÔ·ÂµÇ´Â °ª°ú Áßº¹µÇÁö ¾Ê¾Æ¾ß ÇÕ´Ï´Ù.
+            A[i] = -1; // ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ Ã¤ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ÂµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æ¾ï¿½ ï¿½Õ´Ï´ï¿½.
         }
-        currentIndex = 0; // currentIndex¸¦ 0À¸·Î ÃÊ±âÈ­ÇÕ´Ï´Ù.
+        currentIndex = 0; // currentIndexï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Õ´Ï´ï¿½.
     }
 
-    // µÎ ¹è¿­ÀÌ µ¿ÀÏÇÑÁö È®ÀÎÇÏ´Â ¸Þ¼Òµå
+    // ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
     private bool ArraysEqual(int[] array1, int[] array2)
     {
         if (array1.Length != array2.Length)
@@ -86,17 +92,31 @@ public class ButtonClick : MonoBehaviour
     {
         InitializeArray();
 
-        GameObject[] objects = GameObject.FindGameObjectsWithTag(targetTag); // ÅÂ±×°¡ ÀÏÄ¡ÇÏ´Â ¸ðµç ¿ÀºêÁ§Æ®¸¦ Ã£½À´Ï´Ù.
+        GameObject[] objects = GameObject.FindGameObjectsWithTag(targetTag); // ï¿½Â±×°ï¿½ ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ï¿½Ï´ï¿½.
         GameObject[] objects2 = GameObject.FindGameObjectsWithTag(targetTag2);
 
         foreach (GameObject obj in objects)
         {
-            Animator animator = obj.GetComponent<Animator>(); // ¾Ö´Ï¸ÞÀÌÅÍ ÄÁÆ®·Ñ·¯¸¦ °¡Á®¿É´Ï´Ù.
+            Animator animator = obj.GetComponent<Animator>(); // ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½É´Ï´ï¿½.
             if (animator != null)
             {
-                animator.SetBool("Open", false); // ÆÄ¶ó¹ÌÅÍ °ªÀ» º¯°æÇÕ´Ï´Ù.
+                animator.SetBool("Open", false); // ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
             }
         }
+    }
+
+
+    public void Print(string str){
+        textComponent.text = str;
+        resultText.text = "2";
+        Current.SetActive(true);
+        StartCoroutine(AfterDelay());
+    }
+
+    IEnumerator AfterDelay(){
+        float delay = 3f;
+        yield return new WaitForSeconds(delay);
+        Current.SetActive(false);
     }
 }
 

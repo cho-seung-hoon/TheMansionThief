@@ -30,6 +30,7 @@ public class PasswordEvent : MonoBehaviour
             resultText.text = "Correct!";
             resultUi.SetActive(true);
             StartCoroutine(AfterDelay());
+            StartCoroutine(AfterEnd());
         }
         else{
             resultText.text = "Not Answer";
@@ -41,5 +42,10 @@ public class PasswordEvent : MonoBehaviour
         float delay = 3f;
         yield return new WaitForSeconds(delay);
         resultUi.SetActive(false);
+    }
+    IEnumerator AfterEnd(){
+        float delay = 3f;
+        yield return new WaitForSeconds(delay);
+        Application.Quit();
     }
 }

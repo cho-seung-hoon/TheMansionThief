@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +9,10 @@ public class MenuEvent : MonoBehaviour
     public GameObject OptionMenu;
     public GameObject HintArea;
     public GameObject Cursor;
-    public GameObject Current;
-    public TextMeshProUGUI textComponent;
-    
+    private CameraController camerController;
 
     void Start(){
-
+        camerController = Camera.main.GetComponent<CameraController>();
     }
     void Update()
     {
@@ -25,7 +22,6 @@ public class MenuEvent : MonoBehaviour
             }
             else{
                 Pause();
-                
             }
         }
     }
@@ -33,11 +29,13 @@ public class MenuEvent : MonoBehaviour
         Cursor.SetActive(true);
         OptionMenu.SetActive(false);
         GameIsPaused = false;
+        camerController.ToggleCamera(true);
     }
     public void Pause(){
         Cursor.SetActive(false);
         OptionMenu.SetActive(true);
         GameIsPaused = true;
+        camerController.ToggleCamera(false);
     }
     public void Hint(){
         OptionMenu.SetActive(false);
@@ -49,19 +47,5 @@ public class MenuEvent : MonoBehaviour
     }
     public void Quit(){
         Application.Quit();
-    }
-
-    public void Print(string str){
-        textComponent.text = str;
-
-        Current.SetActive(true);
-        StartCoroutine(AfterDelay());
-    }
-
-    IEnumerator AfterDelay(){
-        float delay = 3f;
-        yield return new WaitForSeconds(delay);
-        Current.SetActive(false);
-    }
-    
+    }    
 }
