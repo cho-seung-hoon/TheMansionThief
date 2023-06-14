@@ -12,18 +12,20 @@ public class MenuEvent : MonoBehaviour
     public GameObject Cursor;
     public GameObject Current;
     public TextMeshProUGUI textComponent;
+    
 
     void Start(){
+
     }
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)){
-            esc();
             if (GameIsPaused){
                 Resume();
             }
             else{
                 Pause();
+                
             }
         }
     }

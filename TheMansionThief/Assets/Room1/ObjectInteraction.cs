@@ -35,7 +35,7 @@ public class ObjectInteraction : MonoBehaviour
                 transform.position = mainCamera.ScreenToWorldPoint(mousePosition);
 
                 // 오브젝트의 로컬 회전을 초기화
-                transform.localRotation = Quaternion.identity;
+                //transform.localRotation = Quaternion.identity;
 
                 isFollowing = true;
             }
@@ -50,7 +50,9 @@ public class ObjectInteraction : MonoBehaviour
         if (isFollowing)
         {
             // 오브젝트를 메인 카메라 위치로 이동
-            transform.position = mainCamera.transform.position;
+            transform.position = mainCamera.transform.position + new Vector3(0, 0, 1f);
+            transform.rotation = mainCamera.transform.rotation;
+            //bObject.transform.position = mainCamera.transform.position;
         }
     }
 }
