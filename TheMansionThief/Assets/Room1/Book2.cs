@@ -8,6 +8,8 @@ public class Book2 : MonoBehaviour
 
     private ButtonClick ButtonClick; // 타겟 오브젝트에 연결된 BoolSequenceExample 스크립트를 저장할 변수
 
+    private bool isMouseOver = false;
+
     private void Start()
     {
         if (targetObject != null)
@@ -16,11 +18,21 @@ public class Book2 : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    void Update()
     {
-        if (ButtonClick != null)
+        if (isMouseOver && Input.GetKeyDown(KeyCode.E))
         {
-            ButtonClick.SomeMethod(2); // 변경하고자 하는 스크립트의 변수 값을 변경합니다.
+            ButtonClick.SomeMethod(2);
         }
+    }
+
+    void OnMouseEnter()
+    {
+        isMouseOver = true;
+    }
+
+    void OnMouseExit()
+    {
+        isMouseOver = false;
     }
 }

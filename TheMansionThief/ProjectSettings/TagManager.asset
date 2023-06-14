@@ -8,6 +8,11 @@ TagManager:
   - NewsTrigger
   - Room1Answer
   - InteractableObject
+  - Chair
+  - Stair
+  - roll
+  - battery
+  - ramp1
   layers:
   - Default
   - TransparentFX

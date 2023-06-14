@@ -18,6 +18,8 @@ public class ButtonClick : MonoBehaviour
 
     private int currentIndex = 0;
 
+    private bool isMouseOver = false;
+
     private void Start()
     {
         InitializeArray();
@@ -81,28 +83,34 @@ public class ButtonClick : MonoBehaviour
     }
 
 
-
-
-
-
-
-
-
-    private void OnMouseDown()
+    void Update()
     {
-        InitializeArray();
-
-        GameObject[] objects = GameObject.FindGameObjectsWithTag(targetTag); // �±װ� ��ġ�ϴ� ��� ������Ʈ�� ã���ϴ�.
-        GameObject[] objects2 = GameObject.FindGameObjectsWithTag(targetTag2);
-
-        foreach (GameObject obj in objects)
+        if (isMouseOver && Input.GetKeyDown(KeyCode.E))
         {
-            Animator animator = obj.GetComponent<Animator>(); // �ִϸ����� ��Ʈ�ѷ��� �����ɴϴ�.
-            if (animator != null)
+            InitializeArray();
+
+            GameObject[] objects = GameObject.FindGameObjectsWithTag(targetTag); // �±װ� ��ġ�ϴ� ��� ������Ʈ�� ã���ϴ�.
+            GameObject[] objects2 = GameObject.FindGameObjectsWithTag(targetTag2);
+
+            foreach (GameObject obj in objects)
             {
-                animator.SetBool("Open", false); // �Ķ���� ���� �����մϴ�.
+                Animator animator = obj.GetComponent<Animator>(); // �ִϸ����� ��Ʈ�ѷ��� �����ɴϴ�.
+                if (animator != null)
+                {
+                    animator.SetBool("Open", false); // �Ķ���� ���� �����մϴ�.
+                }
             }
         }
+    }
+
+    void OnMouseEnter()
+    {
+        isMouseOver = true;
+    }
+
+    void OnMouseExit()
+    {
+        isMouseOver = false;
     }
 
 

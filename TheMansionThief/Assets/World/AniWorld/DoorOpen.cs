@@ -6,14 +6,28 @@ public class DoorOpen : MonoBehaviour
 {
     private Animator animator;
 
+    private bool isMouseOver = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    void OnMouseDown()
+    void Update()
     {
-        animator.SetBool("Door", true);
+        if (isMouseOver && Input.GetKeyDown(KeyCode.E))
+        {
+            animator.SetBool("Door", true);
+        }
+    }
 
+    void OnMouseEnter()
+    {
+        isMouseOver = true;
+    }
+
+    void OnMouseExit()
+    {
+        isMouseOver = false;
     }
 }

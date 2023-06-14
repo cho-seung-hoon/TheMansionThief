@@ -30,9 +30,9 @@ public class ObjectInteraction : MonoBehaviour
                 transform.SetParent(bObject.transform);
 
                 // 오브젝트의 위치를 마우스 커서의 위치로 설정
-                Vector3 mousePosition = Input.mousePosition;
-                mousePosition.z = transform.position.z - mainCamera.transform.position.z;
-                transform.position = mainCamera.ScreenToWorldPoint(mousePosition);
+                //Vector3 mousePosition = Input.mousePosition;
+                //mousePosition.z = transform.position.z - mainCamera.transform.position.z;
+                //transform.position = mainCamera.ScreenToWorldPoint(mousePosition);
 
                 // 오브젝트의 로컬 회전을 초기화
                 //transform.localRotation = Quaternion.identity;
@@ -47,13 +47,13 @@ public class ObjectInteraction : MonoBehaviour
             transform.SetParent(null);
         }
 
-        if (isFollowing)
-        {
-            // 오브젝트를 메인 카메라 위치로 이동
-            transform.position = mainCamera.transform.position + new Vector3(0, 0, 1f);
-            transform.rotation = mainCamera.transform.rotation;
-            //bObject.transform.position = mainCamera.transform.position;
-        }
+        //if (isfollowing)
+        //{
+        //    //// 오브젝트를 메인 카메라 위치로 이동
+        //    transform.position = maincamera.transform.position + new vector3(0.1f, 0.5f, 0.8f);
+        //    //transform.rotation = maincamera.transform.rotation;
+        //    ////bobject.transform.position = maincamera.transform.position;
+        //}
     }
 }
 
