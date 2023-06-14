@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuEvent : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject OptionMenu;
     public GameObject HintArea;
+    public GameObject Cursor;
+    public GameObject Current;
+    public TextMeshProUGUI textComponent;
 
+    void Start(){
+    }
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)){
-            if(GameIsPaused){
+            esc();
+            if (GameIsPaused){
                 Resume();
             }
             else{
@@ -20,13 +28,13 @@ public class MenuEvent : MonoBehaviour
         }
     }
     public void Resume(){
+        Cursor.SetActive(true);
         OptionMenu.SetActive(false);
-        Time.timeScale = 1f;
         GameIsPaused = false;
     }
     public void Pause(){
+        Cursor.SetActive(false);
         OptionMenu.SetActive(true);
-        Time.timeScale = 0f;
         GameIsPaused = true;
     }
     public void Hint(){
@@ -40,4 +48,18 @@ public class MenuEvent : MonoBehaviour
     public void Quit(){
         Application.Quit();
     }
+
+    public void Print(string str){
+        textComponent.text = str;
+
+        Current.SetActive(true);
+        StartCoroutine(AfterDelay());
+    }
+
+    IEnumerator AfterDelay(){
+        float delay = 3f;
+        yield return new WaitForSeconds(delay);
+        Current.SetActive(false);
+    }
+    
 }
