@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Room4sc : MonoBehaviour
+public class room4sc : MonoBehaviour
 {
     public GameObject Current;
     public TextMeshProUGUI textComponent;

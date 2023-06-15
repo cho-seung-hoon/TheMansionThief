@@ -6,12 +6,12 @@ public class TriggerExample2 : MonoBehaviour
 {
     public GameObject targetObject;
     bool call = false;
-    private Room4sc Room4sc;
+    private room4sc room4sc;
 
     // Start is called before the first frame update
     void Start()
     {
-        Room4sc = targetObject.GetComponent<Room4sc>();
+        room4sc = targetObject.GetComponent<room4sc>();
     }
 
     // Update is called once per frame
@@ -33,8 +33,7 @@ public class TriggerExample2 : MonoBehaviour
             Invoke("stoproll", 5f);
             if (!call)
             {
-                Debug.Log("444");
-                Room4sc.clear4();
+                room4sc.clear4();
                 call = true;
             }
         }

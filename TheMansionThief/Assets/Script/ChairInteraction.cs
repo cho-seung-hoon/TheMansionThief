@@ -59,9 +59,13 @@ public class ChairInteraction : MonoBehaviour
 
             }
         }
-        if ((chairObject1.transform.rotation.eulerAngles.y >= 175f && chairObject1.transform.rotation.eulerAngles.y <= 185f) && (chairObject2.transform.rotation.eulerAngles.y >= 85f && chairObject2.transform.rotation.eulerAngles.y <= 95f) && (chairObject3.transform.rotation.eulerAngles.y >= 310f && chairObject3.transform.rotation.eulerAngles.y <= 320f) && (chairObject4.transform.rotation.eulerAngles.y >= 40f && chairObject4.transform.rotation.eulerAngles.y <= 50f) && debuglog) {
-            Print("Find The Second Hint");
-        }
+
+            if ((chairObject1.transform.rotation.eulerAngles.y >= 175f && chairObject1.transform.rotation.eulerAngles.y <= 185f) && (chairObject2.transform.rotation.eulerAngles.y >= 85f && chairObject2.transform.rotation.eulerAngles.y <= 95f) && (chairObject3.transform.rotation.eulerAngles.y >= 310f && chairObject3.transform.rotation.eulerAngles.y <= 320f) && (chairObject4.transform.rotation.eulerAngles.y >= 40f && chairObject4.transform.rotation.eulerAngles.y <= 50f) && debuglog)
+            {
+                Print("Find The Second Hint");
+            debuglog = false;
+            }
+
         
         LateUpdate();
         
